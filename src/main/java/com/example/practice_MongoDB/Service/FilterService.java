@@ -19,7 +19,7 @@ public class FilterService {
     @Autowired
     private RevisionRepository revisionRepository;
 
-    public void filterRevisions(MyObject root, LocalDate startDate, LocalDate endDate, Integer amount, String color) {
+    public List<MyObject> filterRevisions(MyObject root, LocalDate startDate, LocalDate endDate, Integer amount, String color) {
         Deque<MyObject> stack = new ArrayDeque<>();
         stack.push(root);
 
@@ -49,6 +49,12 @@ public class FilterService {
                 }
             }
         }
+
+        return resultObjects;
+    }
+    public void printFilterRevisions (MyObject root, LocalDate startDate, LocalDate endDate, Integer amount, String color)
+    {
+        List<MyObject> resultObjects = filterRevisions(root, startDate, endDate, amount, color);
         if (!resultObjects.isEmpty())
         {
             for (MyObject myObject : resultObjects)
@@ -72,4 +78,7 @@ public class FilterService {
         else System.out.println("No revisions found");
     }
 }
+
+
+
 

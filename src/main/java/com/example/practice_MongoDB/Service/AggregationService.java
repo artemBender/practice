@@ -9,7 +9,7 @@ import java.util.*;
 @Service
 public class AggregationService {
 
-    public void maxRevision(MyObject root) {
+    public List<MyObject> maxRevision(MyObject root) {
         Deque<MyObject> stack = new ArrayDeque<>();
         stack.push(root);
 
@@ -35,7 +35,12 @@ public class AggregationService {
                 }
             }
         }
+        return objectsWithMaxAmount;
+    }
 
+    public void printMaxRevision (MyObject root)
+    {
+        List<MyObject> objectsWithMaxAmount = maxRevision(root);
         for (MyObject myObject : objectsWithMaxAmount)
         {
             System.out.println("-------------");
@@ -52,13 +57,11 @@ public class AggregationService {
         }
     }
 
-    public void minRevision(MyObject root) {
+    public List<MyObject> minRevision(MyObject root) {
         Deque<MyObject> stack = new ArrayDeque<>();
         stack.push(root);
-
         List<MyObject> objectsWithMinAmount = new ArrayList<>();
         int minAmount = Integer.MAX_VALUE;
-
         while (!stack.isEmpty()) {
             MyObject current = stack.pop();
             if (current.getRevisions() != null) {
@@ -78,7 +81,13 @@ public class AggregationService {
                 }
             }
         }
+        return objectsWithMinAmount;
+    }
 
+
+    public void printMinRevision (MyObject root)
+    {
+        List<MyObject> objectsWithMinAmount = minRevision(root);
         for (MyObject myObject : objectsWithMinAmount)
         {
             System.out.println("-------------");
@@ -94,5 +103,4 @@ public class AggregationService {
             System.out.println();
         }
     }
-
 }
