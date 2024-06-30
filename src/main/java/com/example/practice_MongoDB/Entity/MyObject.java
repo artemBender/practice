@@ -38,6 +38,10 @@ public class MyObject {
         isRoot = root;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public MyObject() {
         this.id = java.util.UUID.randomUUID().toString();
     }

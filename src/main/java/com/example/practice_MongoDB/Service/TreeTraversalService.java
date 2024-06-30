@@ -13,8 +13,6 @@ public class TreeTraversalService {
 
     @Autowired
     private MyObjectRepository myObjectRepository;
-    @Autowired
-    private TreeService treeService;
 
     public void traverseTreeAndMeasureTime(MyObject root) {
         // Measure time for iterative traversal
@@ -41,8 +39,6 @@ public class TreeTraversalService {
             }
         }
     }
-
-
 
     public Set<MyObject> findRootObjects() {
         List<MyObject> rootObjects = myObjectRepository.findRootObjects();

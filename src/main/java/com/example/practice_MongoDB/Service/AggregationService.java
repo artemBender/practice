@@ -103,4 +103,61 @@ public class AggregationService {
             System.out.println();
         }
     }
+
+
+    public void printAverage(MyObject root) {
+        Deque<MyObject> stack = new ArrayDeque<>();
+        stack.push(root);
+
+        while (!stack.isEmpty()) {
+            MyObject current = stack.pop();
+            Set<Revision> revisions = current.getRevisions();
+
+            if (revisions != null) {
+                int totalAmount = 0;
+                int count = 0;
+
+                for (Revision revision : revisions) {
+                    int amount = revision.getAmount();
+                    totalAmount += amount;
+                    count++;
+                    Set<MyObject> childObjects = revision.getChildObjects();
+                    if (childObjects != null) {
+                        for (MyObject child : childObjects) {
+                            stack.push(child);
+                        }
+                    }
+                }
+
+                double averageAmount = count == 0 ? 0 : (double) totalAmount / count;
+                System.out.println("Object: " + current.getId() + ", Average amount: " + averageAmount);
+            }
+        }
+    }
+
+    public void printSum(MyObject root) {
+        Deque<MyObject> stack = new ArrayDeque<>();
+        stack.push(root);
+
+        while (!stack.isEmpty()) {
+            MyObject current = stack.pop();
+            Set<Revision> revisions = current.getRevisions();
+
+            if (revisions != null) {
+                int totalAmount = 0;
+
+                for (Revision revision : revisions) {
+                    int amount = revision.getAmount();
+                    totalAmount += amount;
+                    Set<MyObject> childObjects = revision.getChildObjects();
+                    if (childObjects != null) {
+                        for (MyObject child : childObjects) {
+                            stack.push(child);
+                        }
+                    }
+                }
+                System.out.println("Object: " + current.getId() + ", Average amount: " + totalAmount);
+            }
+        }
+    }
 }

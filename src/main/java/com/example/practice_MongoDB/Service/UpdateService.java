@@ -7,6 +7,7 @@ import com.example.practice_MongoDB.Repository.RevisionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
@@ -37,6 +38,7 @@ public class UpdateService {
             myObject.get().getParentRevision().add(revision.get());
             revisionRepository.save(revision.get());
             myObjectRepository.save(myObject.get());
+            System.out.println("Object added");
         } else {
             System.out.println("Object or revision not found");
         }
@@ -66,8 +68,33 @@ public class UpdateService {
             revision.get().getMyObject().add(myObject.get());
             revisionRepository.save(revision.get());
             myObjectRepository.save(myObject.get());
-
+            System.out.println("Revision added");
         } else System.out.println("Object or revision not found");
+    }
+
+    public void updateRevision(String id, LocalDate startDate, LocalDate endDate, int amount, String color)
+    {
+        Optional<Revision> revisionOptional = revisionRepository.findById(id);
+        if(revisionOptional.isPresent())
+        {
+            Revision revision = revisionOptional.get();
+            if (!revision.getStartDate().equals(startDate) ||
+                    !revision.getEndDate().equals(endDate) ||
+                    !(revision.getAmount() == amount) ||
+                    !revision.getColor().equals(color))
+            {
+                revision.setStartDate(startDate);
+                revision.setEndDate(endDate);
+                revision.setAmount(amount);
+                revision.setColor(color);
+                revisionRepository.save(revision);
+                System.out.println("Revision updated");
+            } else {
+                System.out.println("No changes detected, revision not updated");
+            }
+        } else {
+            System.out.println("Revision not found");
+        }
     }
 
 }

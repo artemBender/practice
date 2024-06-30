@@ -11,9 +11,9 @@ import java.time.LocalDate;
 import java.util.*;
 
 @Service
-public class TreeService {
+public class CreateTreeService {
 
-    private static final int MAX_NODES = 100000;
+    private static final int MAX_NODES = 100;
 
     private final Random random = new Random();
 
@@ -25,6 +25,10 @@ public class TreeService {
 
     private int currentNodeCount = 0;
 
+    public int getCurrentNodeCount()
+    {
+        return currentNodeCount;
+    }
     public void generateTree() {
         myObjectRepository.deleteAll();
         revisionRepository.deleteAll();

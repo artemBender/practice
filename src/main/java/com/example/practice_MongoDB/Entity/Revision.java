@@ -37,6 +37,10 @@ public class Revision {
         this.id = java.util.UUID.randomUUID().toString();
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getId() {
         return id;
     }
