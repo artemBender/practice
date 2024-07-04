@@ -41,7 +41,7 @@ public class DeleteServiceTest {
 
     @Test
     void testDeleteRevision() {
-        MyObject myObject = new MyObject(false, new HashSet<>(), new HashSet<>());
+        MyObject myObject = new MyObject(new HashSet<>(), new HashSet<>());
         myObject.setId("object1");
         Revision revision1 = new Revision(new HashSet<>(Collections.singletonList(myObject)), new HashSet<>(), LocalDate.now(), LocalDate.now(), 134, "red");
         revision1.setId("revision1");
@@ -68,7 +68,6 @@ public class DeleteServiceTest {
         String objectId = "object1";
         MyObject myObject = new MyObject();
         myObject.setId(objectId);
-        myObject.setRoot(true);
         Revision revision = new Revision();
         revision.setId("revision1");
         myObject.setRevisions(new HashSet<>(Collections.singletonList(revision)));

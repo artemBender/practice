@@ -13,7 +13,7 @@ import java.util.*;
 @Service
 public class CreateTreeService {
 
-    private static final int MAX_NODES = 100;
+    private static final int MAX_NODES = 100000;
 
     private final Random random = new Random();
 
@@ -32,7 +32,7 @@ public class CreateTreeService {
     public void generateTree() {
         myObjectRepository.deleteAll();
         revisionRepository.deleteAll();
-        MyObject root = new MyObject(true, null, new HashSet<>());
+        MyObject root = new MyObject(null, new HashSet<>());
         revisionRepository.saveAll(generateRevisions(root));
         myObjectRepository.save(root);
         currentNodeCount++;
@@ -44,7 +44,7 @@ public class CreateTreeService {
                 if (currentNodeCount >= MAX_NODES) {
                     break;
                 }
-                MyObject childObject = new MyObject(false, new HashSet<>(), new HashSet<>());
+                MyObject childObject = new MyObject(new HashSet<>(), new HashSet<>());
                 childObject.getParentRevision().add(currentRevision);
                 childObjects.add(childObject);
                 Set<Revision> childRevisions = new HashSet<>(generateRevisions(childObject));

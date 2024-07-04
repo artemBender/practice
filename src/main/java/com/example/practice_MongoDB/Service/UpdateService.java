@@ -30,7 +30,7 @@ public class UpdateService {
 
         if (myObject.isPresent() && revision.isPresent()) {
             for(MyObject myObj : revision.get().getMyObject())
-                if (myObj.getId().equals(myObject.get().getId()) || myObject.get().isRoot()) {
+                if (myObj.getId().equals(myObject.get().getId()) || myObject.get().getParentRevision() == null) {
                 System.out.println("Adding error: cycle");
                 return;
                 }
@@ -54,7 +54,7 @@ public class UpdateService {
 
         if(myObject.isPresent() && revision.isPresent())
         {
-            if(myObject.get().isRoot()) {
+            if(myObject.get().getParentRevision() == null) {
                 System.out.println("Adding error: cycle");
                 return;
             }

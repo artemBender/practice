@@ -36,7 +36,7 @@ public class UpdateTest {
 
     @Test
     public void testAddObjectToRevision_Success() {
-        MyObject myObject = new MyObject(false, new HashSet<>(), new HashSet<>());
+        MyObject myObject = new MyObject( new HashSet<>(), new HashSet<>());
         myObject.setId("object1");
         Revision revision = new Revision(new HashSet<>(), new HashSet<>(), LocalDate.now(), LocalDate.now(), 134, "color");
         revision.setId("revision1");
@@ -52,9 +52,8 @@ public class UpdateTest {
 
     @Test
     public void testAddObjectToRevision_CycleError() {
-        MyObject myObject = new MyObject(false, new HashSet<>(), new HashSet<>());
+        MyObject myObject = new MyObject(new HashSet<>(), new HashSet<>());
         myObject.setId("object1");
-        myObject.setRoot(true);
         Revision revision = new Revision(new HashSet<>(), new HashSet<>(), LocalDate.now(), LocalDate.now(), 134, "color");
         revision.setId("revision1");
         revision.getMyObject().add(myObject);
@@ -70,7 +69,7 @@ public class UpdateTest {
 
     @Test
     public void testAddRevisionToObject_Success() {
-        MyObject myObject = new MyObject(false, new HashSet<>(), new HashSet<>());
+        MyObject myObject = new MyObject(new HashSet<>(), new HashSet<>());
         myObject.setId("object1");
         Revision revision = new Revision(new HashSet<>(), new HashSet<>(), LocalDate.now(), LocalDate.now(), 134, "color");
         revision.setId("revision1");
@@ -86,7 +85,7 @@ public class UpdateTest {
 
     @Test
     public void testAddRevisionToObject_CycleError() {
-        MyObject myObject = new MyObject(false, new HashSet<>(), new HashSet<>());
+        MyObject myObject = new MyObject(new HashSet<>(), new HashSet<>());
         myObject.setId("object1");
         Revision revision = new Revision(new HashSet<>(), new HashSet<>(), LocalDate.now(), LocalDate.now(), 134, "color");
         revision.setId("revision1");

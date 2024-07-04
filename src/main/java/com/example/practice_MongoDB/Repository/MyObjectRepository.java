@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface MyObjectRepository extends MongoRepository<MyObject, String> {
-    @Query("{ 'isRoot': true }")
+    @Query("{ 'parentRevision': null }")
     List<MyObject> findRootObjects();
 }

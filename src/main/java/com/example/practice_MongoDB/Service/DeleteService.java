@@ -40,7 +40,6 @@ public class DeleteService {
                 for (MyObject myObj : myObjects)
                 {
                     myObj.setParentRevision(new HashSet<>());
-                    myObj.setRoot(true);
                 }
                 myObjectRepository.saveAll(myObjects);
                 myObjectRepository.save(myObject);
@@ -63,14 +62,13 @@ public class DeleteService {
         Optional<MyObject> myObject = myObjectRepository.findById(objectId);
         if(myObject.isPresent())
         {
-            if(myObject.get().isRoot() && myObject.get().getRevisions().size() == 1)
+            if(myObject.get().getParentRevision() == null && myObject.get().getRevisions().size() == 1)
             {
                 Set<Revision> childRevision = myObject.get().getRevisions();
                 for(Revision rev : childRevision) {
                     for (MyObject object : rev.getChildObjects())
                     {
                         object.setParentRevision(new HashSet<>());
-                        object.setRoot(true);
                     }
                     myObjectRepository.saveAll(rev.getChildObjects());
                 }
@@ -99,10 +97,6 @@ public class DeleteService {
         {
             if (revision.get().getChildObjects().removeIf(dbRef -> dbRef.getId().equals(objectId))) {
                 myObject.get().getParentRevision().removeIf(dbRef -> dbRef.getId().equals(revisionId));
-                if (myObject.get().getParentRevision().isEmpty())
-                {
-                    myObject.get().setRoot(true);
-                }
                 revisionRepository.save(revision.get());
                 myObjectRepository.save(myObject.get());
                 System.out.println("Object deleted from revision");
