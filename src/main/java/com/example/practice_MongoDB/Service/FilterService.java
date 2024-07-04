@@ -132,4 +132,132 @@ public class FilterService {
         return collection.aggregate(pipeline, MyObject.class).into(new ArrayList<>());
     }
 
+    //запрос
+
+//    [
+//    {
+//        $match: {
+//            parentRevision: null
+//        }
+//    },
+//    {
+//        $lookup: {
+//            from: "revision",
+//                    let: {
+//                revisionIds: "$revisions.$id"
+//            },
+//            pipeline: [
+//            {
+//                $match: {
+//                    $expr: {
+//                        $in: ["$_id", "$$revisionIds"]
+//                    }
+//                }
+//            },
+//            {
+//                $match: {
+//                    color: "green"
+//                }
+//            },
+//            {
+//                $lookup: {
+//                    from: "myObject",
+//                            let: {
+//                        childObjectIds: "$childObjects.$id"
+//                    },
+//                    pipeline: [
+//                    {
+//                        $match: {
+//                            $expr: {
+//                                $in: [
+//                                "$_id",
+//                                        "$$childObjectIds"
+//                    ]
+//                            }
+//                        }
+//                    },
+//                    {
+//                        $lookup: {
+//                            from: "revision",
+//                                    let: {
+//                                revisionIds: "$revisions.$id"
+//                            },
+//                            pipeline: [
+//                            {
+//                                $match: {
+//                                    $expr: {
+//                                        $in: [
+//                                        "$_id",
+//                                                "$$revisionIds"
+//                          ]
+//                                    }
+//                                }
+//                            },
+//                            {
+//                                $match: {
+//                                    color: "green"
+//                                }
+//                            },
+//                            {
+//                                $lookup: {
+//                                    from: "myObject",
+//                                            let: {
+//                                        childObjectIds:
+//                                        "$childObjects.$id"
+//                                    },
+//                                    pipeline: [
+//                                    {
+//                                        $match: {
+//                                            $expr: {
+//                                                $in: [
+//                                                "$_id",
+//                                                        "$$childObjectIds"
+//                                ]
+//                                            }
+//                                        }
+//                                    },
+//                                    {
+//                                        $lookup: {
+//                                            from: "revision",
+//                                                    let: {
+//                                                revisionIds:
+//                                                "$revisions.$id"
+//                                            },
+//                                            pipeline: [
+//                                            {
+//                                                $match: {
+//                                                    $expr: {
+//                                                        $in: [
+//                                                        "$_id",
+//                                                                "$$revisionIds"
+//                                      ]
+//                                                    }
+//                                                }
+//                                            },
+//                                            {
+//                                                $match: {
+//                                                    color: "green"
+//                                                }
+//                                            }
+//                              ],
+//                                            as: "revisions"
+//                                        }
+//                                    }
+//                        ],
+//                                    as: "childObjects"
+//                                }
+//                            }
+//                  ],
+//                            as: "revisions"
+//                        }
+//                    }
+//            ],
+//                    as: "childObjects"
+//                }
+//            }
+//      ],
+//            as: "revisions"
+//        }
+//    }
+//]
 }
